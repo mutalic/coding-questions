@@ -23,9 +23,9 @@ function increment(i) {
 }
 
 /*
-incrementByOnce
-    - The function 'incrementBy' which can only be run once.
-    - Closure created for incrementByOnce: {ranOnce: false, result: undefined}.
+incrementOnce
+    - The function 'increment' which can only be run once by passing it as a callback function to once().
+    - Closure created for incrementOnce: {ranOnce: false, result: undefined}.
 */
 const incrementOnce = once(increment);
 
