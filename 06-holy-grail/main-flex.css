@@ -1,0 +1,55 @@
+body {
+  min-height: 100vh;
+  font-family: sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  margin: 0;
+
+  display: flex;
+  flex-direction: column;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+header,
+nav,
+main,
+aside,
+footer {
+  padding: 12px;
+  text-align: center;
+}
+
+header {
+  background-color: tomato;
+  height: 60px;
+}
+
+.middle {
+  flex-grow: 1;
+  display: flex;
+}
+
+nav {
+  background-color: coral;
+  flex-shrink: 0; /* Don't shrink! */
+  width: 100px;
+}
+
+main {
+  background-color: moccasin;
+  flex-grow: 1;
+}
+
+aside {
+  background-color: sandybrown;
+  flex-shrink: 0;
+  width: 100px;
+}
+
+footer {
+  background-color: slategray;
+  height: 100px;
+}
