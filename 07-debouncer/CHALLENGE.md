@@ -48,38 +48,38 @@ debouncedIncrement(); // i = 0
 
 ### What I Learned
 
-- "this" binding:
+#### "this" binding:
 
-  - Purpose: For cases in which the function is called as a method of an object and needs to access the context (i.e., the "this" value) of that object.
-  - "this" can be bound by either using Function.prototype.apply or Function.prototype.call. However, because 'func' in this challenge is called within setTimeout's callback function, which makes it a free function invocation, the 'this' value is the global object (Window or undefined (strict mdoe)). This is why we need to make sure 'this' refers to the correct context. This can be done in two different ways:
+- Purpose: For cases in which the function is called as a method of an object and needs to access the context (i.e., the "this" value) of that object.
+- "this" can be bound by either using Function.prototype.apply or Function.prototype.call. However, because 'func' in this challenge is called within setTimeout's callback function, which makes it a free function invocation, the 'this' value is the global object (Window or undefined (strict mdoe)). This is why we need to make sure 'this' refers to the correct context. This can be done in two different ways:
 
-    #### Solution #1
+  ##### Solution #1
 
-    ```JavaScript
-        function debounce(func, wait) {
-            let timeoutID = null;
-            return function (...args) {
-                const context = this; // Saves the context whenever debounced func is invoked.
-                clearTimeout(timeoutID);
+  ```JavaScript
+      function debounce(func, wait) {
+          let timeoutID = null;
+          return function (...args) {
+              const context = this; // Saves the context whenever debounced func is invoked.
+              clearTimeout(timeoutID);
 
-                timeoutID = setTimeout(function () {
-                    func.apply(context, args); // binds 'context' to func, because 'this' is Window here
-                }, wait);
-            };
-        }
-    ```
+              timeoutID = setTimeout(function () {
+                  func.apply(context, args); // binds 'context' to func, because 'this' is Window here
+              }, wait);
+          };
+      }
+  ```
 
-    #### Solution #2
+  ##### Solution #2
 
-    ```JavaScript
-        function debounce(func, wait) {
-            let timeoutID = null;
-            return function (...args) {
-                clearTimeout(timeoutID);
+  ```JavaScript
+      function debounce(func, wait) {
+          let timeoutID = null;
+          return function (...args) {
+              clearTimeout(timeoutID);
 
-                timeoutID = setTimeout(() => { // callback function is invoked via arrow function
-                    func.apply(this, args); // 'this' refers to outer function's 'this' value (it is bound to the context in which the function is originally created)
-                }, wait);
-            }
-        }
-    ```
+              timeoutID = setTimeout(() => { // callback function is invoked via arrow function
+                  func.apply(this, args); // 'this' refers to outer function's 'this' value (it is bound to the context in which the function is originally created)
+              }, wait);
+          }
+      }
+  ```
