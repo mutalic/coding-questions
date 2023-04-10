@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        export default function flatten(value) {
+            let resultArray = [];
+            for (let i = 0; i < value.length; i++) {
+                if (!Array.isArray(value[i])) { // if current element isn't an Array
+                    resultArray.push(value[i]);
+                } else { // If the Element is an Array
+                    // Flatten the Array-element then concatenate to current resultArray.
+                    resultArray = [...resultArray, ...flatten(value[i])]; // recursively called until only non-Array values are left.
+                }
+            }
+            return resultArray;
+        }
+
+        console.log(flatten([1, [2, 3], 4]))
+    </script>
+</body>
+</html>
