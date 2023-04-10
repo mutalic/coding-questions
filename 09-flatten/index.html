@@ -8,7 +8,7 @@
 </head>
 <body>
     <script>
-        export default function flatten(value) {
+        function flatten(value) {
             let resultArray = [];
             for (let i = 0; i < value.length; i++) {
                 if (!Array.isArray(value[i])) { // if current element isn't an Array
