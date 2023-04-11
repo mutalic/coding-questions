@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function promiseAll(iterable) {
+            /*
+            function 'promiseAll'
+                - Takes an iterable (array) with contains either promise or non-promise objects/elements as an argument.
+                - Returns a Promise object that resolves to an array containing the resolved results of the input array elements.
+                - Returns an empty arrray in case empty array is passed as an argument.            
+            */
+            return new Promise(function (resolve, reject) {
+                // Contains the resolved values
+                let results = new Array(iterable.length);
+                // Keeps track of how many unresolved elements are left
+                let unresolved = iterable.length; // Once this is 0, the outer promise will resolve
+
+                // empty array input cases
+                if (unresolved === 0) {
+                    resolve(results);
+                }
+
+                // Loop through each promise [p1, p2, ..., pn] (n promises/elements)
+                iterable.forEach(function (item, index) {
+                    // Converts non-promise elements to promise (so that we can use Promise.then()) (preserves value)
+                    let promise = Promise.resolve(item);
+
+                    promise
+                        .then(function (value) {
+                            results[index] = value; // inserts resolved value to correct index
+
+                            if (unresolved === 0) { // once all promises are resolved
+                                resolve(results); // resolve the outer promise
+                            }
+                        })
+                        .catch(function (reason) { // if at least one promise is rejected
+                            reject(reason); // reject the outer promise
+                        });
+                })
+            })
+        }
+    </script>
+</body>
+</html>
