@@ -46,7 +46,7 @@
         /*
             Simpler solutions for primitive data type comparisons (uniqueArray2, uniqueArray3)
                 - These will keep different objects with same values,
-                  since they are reference data types and are technically "different" values (referece).
+                  since they are reference data types and are technically "different" values.
         */
         function uniqueArray2(array) {
             const result = [];
@@ -60,7 +60,7 @@
             return result;
         }
 
-        // One-Liner ()
+        // One-Liner
         function uniqueArray3(array) {
             return Array.from(new Set(array));
         }
