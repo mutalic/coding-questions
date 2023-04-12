@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+        Solution #1
+            Utilizes:
+                - JSON.stringify()
+                - JSON.parse()
+        */
+        function deepClone1(value) {
+            return JSON.parse(JSON.stringify(value));
+        }
+
+        /* Solution #2
+            - Doesn't rely on JSON.stringify() or JSON.parse().
+            - Checks for different data types.
+                - Primitive data types (string, number, boolean, null, undefined)
+                - Non-Primitive data types
+                    - Arrays
+                    - Non-Array Objects
+        */
+        function deepClone2(value) {
+            // Primitive Data Types
+            if (typeof value !== "object" || value === null) {
+                return value;
+            }
+
+            // Arrays
+            if (Array.isArray(value)) {
+                return value.map(item => deepClone(value));
+            }
+
+            // Objects
+            let entries = Object.entries(value);
+            let copiedEntries = entries.map(([key, value]) => [key, deepClone(value)]);
+            return Object.fromEntries(copiedEntries);
+        }
+    </script>
+</body>
+</html>
