@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            This solution looks at the actual value of the elements and only keeps unique values,
+            meaning that objects (reference data types) with the same value will be considered the same.
+                Ex. uniqueArray([{n: 0}, {n: 0}]) will return [{n: 0}].
+        */
+        function uniqueArray(array) {
+            /*
+              Simply comparing non-primitive values will always return "false".
+              Thus, convert into JSON string data before comparing values.
+            */
+            let stringifiedArray = array.map(elem => {
+                // Since JSON.stringify(undefined) will throw error
+                if (elem !== undefined) {
+                    return JSON.stringify(elem);
+                }
+                return "undefined";
+            });
+
+            // Set to add unique values to
+            let results = new Set();
+            // Loop through, and add to Set "results"
+            for (let stringifiedElem of stringifiedArray) {
+                results.add(stringifiedElem);
+            }
+            // Convert Set back to Array
+            results = Array.from(results);
+
+            return results.map(stringifiedElem => {
+                if (stringifiedElem !== "undefined") {
+                    return JSON.parse(stringifiedElem);
+                }
+                return undefined;
+            });
+        }
+
+        /*
+            Simpler solutions for primitive data type comparisons (uniqueArray2, uniqueArray3)
+                - These will keep different objects with same values,
+                  since they are reference data types and are technically "different" values (referece).
+        */
+        function uniqueArray2(array) {
+            const result = [];
+
+            array.forEach((item) => {
+                if (!result.includes(item)) {
+                    result.push(item);
+                }
+            });
+
+            return result;
+        }
+
+        // One-Liner ()
+        function uniqueArray3(array) {
+            return Array.from(new Set(array));
+        }
+    </script>
+</body>
+</html>
