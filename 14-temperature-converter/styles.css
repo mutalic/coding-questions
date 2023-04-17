@@ -1,0 +1,42 @@
+html {
+    box-sizing: border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+
+.container {
+    width: 30%;
+    min-width: 300px;
+    margin: 5rem auto;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.temperature-box {
+    background-color: #eee;
+    border: 2px solid rgb(230, 225, 225);
+    width: 45%;
+}
+
+.temperature-box input {
+    padding: 1rem;
+    width: 100%;
+    border: none;
+    text-align: center;
+}
+
+.temperature-box p {
+    text-align: center;
+    font-size: 0.9rem;
+    margin: 0.3rem 0;
+}
