@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="module">
+        /**
+     * @param {...(string|Object|Array<string|Object>)} args
+     * @return {string}
+     */
+        /*
+        1. args : array containing all arguments (string, array, object)
+        2. result : string that we shall concatenate onto
+        3. For each element in 'args',
+            - If element is a string, directly concatenate to result
+            - If element is array, call classNames() on that element.
+            - If element is an object, use Object.entries(element) to loop through
+              each property. If the value of the property is true (if(value)),
+              concatenate to 'result'.
+        4. Return result.
+        */
+        export default function classNames(...args) {
+
+            let result = "";
+
+            args.forEach(function (arg) {
+
+                // Ignore falsey values.
+                if (!arg) {
+                    return;
+                }
+
+                // Handle string and numbers.
+                if (typeof arg === "string" || typeof arg === "number") {
+                    result += `${arg} `;
+                    return;
+                }
+
+                // Handle arrays.
+                if (Array.isArray(arg)) {
+                    result += `${classNames(...arg)} `;
+                    return;
+                }
+
+                // Handle objects.
+                if (typeof arg === "object") {
+                    for (let [key, value] of Object.entries(arg)) {
+                        if (value) {
+                            result += `${key} `;
+                        }
+                    }
+                }
+            });
+
+            // Remove last space from "result" and return.
+            return result.replace(/ $/, "");
+        }
+    </script>
+</body>
+</html>
